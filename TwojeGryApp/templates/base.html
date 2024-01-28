@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <meta charset="UTF-8">
+    <title>Twoje gry</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <div id="sideBar">
+            <div id="userInfo">
+                <div>
+                    <h2>{{ user.first_name}} {{ user.last_name }}</h2>
+                    <p>zalogowano</p>
+                </div>
+                <a class=button href="{% url 'logout' %}"><img class="icon" src="{% static "icons/logout.png" %}" /></a>
+            </div>
+            {% with request.resolver_match.view_name as view_name %}
+                <div class="verticalList">
+                    <a class="item {% if view_name == "manage_rentals" %}selected {% endif %}nav" href="/manage_rentals">Zarządzaj wypożyczeniami</a>
+                    <a class="item {% if view_name == "manage_copies" %}selected {% endif %}nav" href="/manage_copies">Zarządzaj egzemplarzami</a>
+                    <a class="item {% if view_name == "manage_games" %}selected {% endif %}nav" href="/manage_games">Zarządzaj grami</a>
+                    <a class="item {% if view_name == "manage_clients" %}selected {% endif %}nav" href="/manage_clients">Zarządzaj klientami</a>
+
+                </div>
+            {% endwith %}
+
+        </div>
+    {% endif %}
+    <div id="main">
+        <div id="topBar">
+            <h2>{% block title %}{% endblock title %}</h2>
+        </div>
+        <div id="content">
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+
+</body>
+</html>
+<style>
+    @font-face {
+    font-family: 'Inter';
+    src: url({% static 'Inter-variable.ttf' %}) format('truetype');
+}
+</style>

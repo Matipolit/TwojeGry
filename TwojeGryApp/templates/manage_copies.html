@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Wybierz egzemplarz{% endblock title %}
+{% load static %}
+{% block content %}
+
+    <div class="verticalList">
+        {% for copy in copies %}
+
+            <div class="item">
+                <h2>{{ forloop.counter }}</h2>
+                {% if copy.is_rented %}
+                    <div>
+                        <p class="negative">wypożyczony</p>
+                        <p class="secondary">{{ copy.rental_start }} - {{ copy.rental_end }}</p>
+                    </div>
+                {% else %}
+                    <p class="positive">dostępny</p>
+                {% endif %}
+                <p>dodano <b>{{ copy.time_bought }}</b></p>
+                <div>
+                    <button hx-post="edit/{{ copy.id }}"><img class="icon" src="{% static 'icons/edit.png' %}" /></button>
+                    <button hx-post="delete/{{ copy.id }}"><img class="icon" src="{% static 'icons/delete.png' %}" /></button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

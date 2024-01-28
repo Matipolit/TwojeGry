@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Wypełnij formularz{% endblock %}
+
+{% block content %}
+    {{ errors }}
+    <form method="POST" >
+        {% csrf_token %}
+        {{ rental_form.as_p }}
+        <input type="submit" value="Przejdź do płatności">
+    </form>
+    {% if payment is not None %}
+        {% if payment %}
+            <p>Udało się zapłacić</p>
+        {% else %}
+            <p>Nie udało się zapłacić</p>
+        {% endif %}
+    {% endif %}
+
+{% endblock content %}

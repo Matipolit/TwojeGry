@@ -1,0 +1,129 @@
+
+html {
+    --text: #000;
+    --text-secondary: #0008;
+    --surface: #BDC3CD;
+    --surface-accent: #DCEAFF;
+    --surface-accent-secondary: #9CABC6;
+    --surface-accent-teriary: #223452;
+    --text-positive: #255931;
+    --text-negative: #592525;
+    --surface-positive: #9CC6AD;
+    --surface-negative: #C69C9C;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    font-family: "Inter", sans-serif;
+    display: flex;
+}
+
+h1, h2, h3, h4, p {
+    margin: 4px;
+}
+
+th, td{
+    border: solid;
+    border-width: 1px;
+    border-color: var(--text);
+    padding: 4px;
+}
+
+#main {
+    background-color: var(--surface);
+    height: 100%;
+    width: 100%;
+}
+#sideBar {
+    flex-direction: column;
+    width: 300px;
+    background-color: var(--surface);
+    z-index: 1;
+    gap: 4px;
+    height: 100%;
+    border-right: 2px solid black;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.25);
+}
+
+#userInfo {
+    padding: 12px;
+}
+
+#topBar {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--surface-accent);
+    padding: 8px;
+    z-index: 2;
+    gap: 8px;
+    top: 0;
+    position: sticky;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+    border-bottom: solid 2px black;
+}
+
+#userInfo{
+    display: flex;
+    color: white;
+    background-color: var(--surface-accent-teriary);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button, button {
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: var(--surface-accent-secondary);
+    padding: 2px;
+}
+
+.button:hover, button:hover{
+    background-color: var(--surface-accent);
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+.verticalList {
+    display: flex;
+    flex-direction: column;
+    list-style-position: outside;
+    border-bottom: 2px solid black;
+
+}
+
+.item {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.item + .item {
+    border-top: 2px solid black;
+}
+
+.selected {
+    background-color: var(--surface-accent);
+}
+
+.negative {
+    color: var(--text-negative);
+}
+
+.positive {
+    color: var(--text-positive);
+}
+
+.secondary {
+    color: var(--text-secondary);
+    font-size: 0.8em;
+}

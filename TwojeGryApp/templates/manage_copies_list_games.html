@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Wybierz grę{% endblock title %}
+{% block content %}
+    <div class="verticalList">
+    {% for game in games %}
+        <a class="item" href="{{ game.id }}">
+            {{ game.name }}
+            <span class="{% if game.available == 0 %}negative{% else %}positive{% endif %}">dostępne {{ game.available }} egz.</span>
+            <span>{{ game.rented }} wypożyczon{% if game.rented == 1 %}y{% else %}e{% endif %}</span>
+        </a>
+    {% endfor %}
+    </div>
+{% endblock content %}
