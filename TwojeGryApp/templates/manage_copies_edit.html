@@ -1,0 +1,8 @@
+<h2>Edytuj egzemplarz</h2>
+<form hx-post="edit/{{ copy.id }}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="body">
+  {% csrf_token %}
+  {{ copy_form.as_p }}
+  <button type="button" onclick="closeWindow()">Anuluj</button>
+  <input class="button positive"type="submit" value="Potwierdź" />
+</form>
+

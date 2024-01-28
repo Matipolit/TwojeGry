@@ -43,6 +43,7 @@ def manage_copies_list_games(request: HttpRequest):
 @login_required(login_url='login')
 def manage_copies(request: HttpRequest, game_id: int):
     now = timezone.now()
+    game = Game.objects.get(id=game_id)
     copies = GameCopy.objects.filter(game_id=game_id).annotate(
         is_rented=Count("order", filter=Q(order__date_returned__gte=now) & Q(order__date_ordered__lte=now)),
     )
@@ -58,9 +59,57 @@ def manage_copies(request: HttpRequest, game_id: int):
             output_field=DateField(),
         )
     )
-    context = {"copies": copies}
+    context = {"copies": copies, "game_id": game.id, "game_name": game.name}
 
     return render(request, "manage_copies.html", context)
+
+class CopyForm(forms.ModelForm):
+    class Meta:
+        model = GameCopy
+        fields = ["game_id", "time_bought"]
+        labels = {
+            "game_id": "Gra",
+            "time_bought": "Data zakupu"
+        }
+@login_required(login_url='login')
+def manage_copies_create(request: HttpRequest, game_id: int):
+    if request.method == "POST":
+        print("Received new create")
+        copy_form = CopyForm(request.POST)
+        if copy_form.is_valid():
+            print("is valid")
+            copy_form.save()
+        return manage_copies(request, game_id)
+    else:
+        copy_form = CopyForm(initial={"game_id": game_id})
+        context = {"copy_form": copy_form, "game_id": game_id}
+        return render(request, "manage_copies_create.html", context)
+    
+
+@login_required(login_url='login')
+def manage_copies_edit(request: HttpRequest, copy_id: int):
+    copy = GameCopy.objects.get(id=copy_id)
+    if request.method== "POST":
+        print("Received new edit")
+        copy_form = CopyForm(request.POST, instance=copy)
+        if copy_form.is_valid():
+            print("Is valid")
+            copy_form.save()
+        return manage_copies(request, copy.game_id.id)
+    else:
+        copy_form = CopyForm(instance=copy)
+        context = {"copy_form": copy_form, "copy": copy}
+        return render(request, "manage_copies_edit.html", context)
+
+def manage_copies_delete(request: HttpRequest, copy_id: int):
+    copy = GameCopy.objects.get(id=copy_id)
+    if request.method == "POST":
+        copy.delete()
+        return manage_copies(request, copy.game_id.id)
+    else:
+        context = {"copy": copy}
+        return render(request, "manage_copies_delete.html", context)
+
 @login_required(login_url='login')
 def manage_rentals(request: HttpRequest):
     class RentalForm(forms.ModelForm):

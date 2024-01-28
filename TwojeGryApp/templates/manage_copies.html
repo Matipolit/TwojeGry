@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block path %}<a href="/manage_copies">Zarządzaj egzemplarzami</a> > {{ game_name }}{%endblock path%}
 {% block title %}Wybierz egzemplarz{% endblock title %}
 {% load static %}
 {% block content %}
@@ -18,11 +19,14 @@
                 {% endif %}
                 <p>dodano <b>{{ copy.time_bought }}</b></p>
                 <div>
-                    <button hx-post="edit/{{ copy.id }}"><img class="icon" src="{% static 'icons/edit.png' %}" /></button>
-                    <button hx-post="delete/{{ copy.id }}"><img class="icon" src="{% static 'icons/delete.png' %}" /></button>
+                    <button hx-get="edit/{{ copy.id }}" hx-trigger="click" hx-target="#window" hx-swap="innerHTML" hx-on::after-request="showWindow()"><img class="icon" src="{% static 'icons/edit.png' %}" /></button>
+                    <button hx-get="delete/{{ copy.id }}" hx-trigger="click" hx-target="#window" hx-swap="innerHtml" hx-on::after-request="showWindow()"><img class="icon" src="{% static 'icons/delete.png' %}" /></button>
                 </div>
             </div>
         {% endfor %}
+        <div class="item clickable" hx-get="create/{{ game_id }}" hx-trigger="click" hx-target="#window" hx-swap="innerHTML" hx-on::after-request="showWindow()">
+            + dodaj nowy
+        </div>
     </div>
 
 {% endblock content %}

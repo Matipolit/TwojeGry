@@ -1,0 +1,20 @@
+<h2>Potwierdź usunięcie</h2>
+<table class="alignedText">
+    <th></th>
+    <th></th>
+    <tr>
+        <td>Gra</td>
+        <td>{{ copy.game_id.name }}</td>
+    </tr>
+    <tr>
+        <td>ID egzemplarza</td>
+        <td>{{ copy.id }}</td>
+    </tr>
+    <tr>
+        <td>Data dodania</td>
+        <td>{{ copy.time_bought }}</td>
+    </tr>
+
+</table>
+<button onclick="closeWindow()">Anuluj</button>
+<button class="negative" hx-post="delete/{{ copy.id }}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-vals='{"formtype": "delete"}' hx-target="body">Usuń</button>

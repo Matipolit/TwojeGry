@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% block path %}Zarządzaj wypożyczeniami{%endblock path%}
 {% block title %}Wypełnij formularz{% endblock %}
 
 {% block content %}
@@ -7,7 +8,7 @@
     <form method="POST" >
         {% csrf_token %}
         {{ rental_form.as_p }}
-        <input type="submit" value="Przejdź do płatności">
+        <input class="button" type="submit" value="Przejdź do płatności">
     </form>
     {% if payment is not None %}
         {% if payment %}

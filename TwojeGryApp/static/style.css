@@ -24,6 +24,8 @@ h1, h2, h3, h4, p {
     margin: 4px;
 }
 
+
+
 th, td{
     border: solid;
     border-width: 1px;
@@ -79,12 +81,19 @@ th, td{
     border: 2px solid black;
     border-radius: 4px;
     background-color: var(--surface-accent-secondary);
-    padding: 2px;
+    padding: 4px;
+    font-size: 1em;
 }
 
-.button:hover, button:hover{
+.clickable{
+    background-color: var(--surface-accent-secondary)
+}
+
+.button:hover, button:hover, .clickable:hover{
     background-color: var(--surface-accent);
 }
+
+
 
 .icon {
     width: 30px;
@@ -126,4 +135,63 @@ th, td{
 .secondary {
     color: var(--text-secondary);
     font-size: 0.8em;
+}
+
+.windowBackground {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #0006;
+    display: none;
+}
+
+#window{
+    z-index: 3;
+    max-width: 550px;
+    margin: 96px auto;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+    display: none;
+    background-color: var(--surface);
+}
+
+.windowHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.alignedText {
+    border: 0;
+    width: 100%;
+}
+
+.alignedText > * td, * th, * tr {
+    border: 0;
+}
+
+button.positive, .button.positive {
+    color: black;
+    font-weight: bold;
+    background-color: var(--surface-positive);
+}
+
+button.positive:hover, .button.positive:hover {
+    background-color: #c5decf;
+}
+
+button.negative, .button.negative{
+    color: black;
+    font-weight: bold;
+    background-color: var(--surface-negative);
+}
+
+button.negative:hover, .button.negative:hover{
+    background-color: #ebd8d8;
 }
