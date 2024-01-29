@@ -57,12 +57,11 @@ class Order(models.Model):
     def is_now(self):
         return self.date_returned > datetime.now().date() > self.date_ordered
 
-    @property
     def price(self, pricing):
         if (self.date_returned == None):
-            return pricing.price_per_day * (self.time_ordered - datetime.now()).days
+            return pricing.price_per_day * (self.date_ordered - datetime.now().date()).days
         else:
-            return pricing.price_per_day * (self.date_returned - self.time_ordered).days
+            return pricing.price_per_day * (self.date_returned - self.date_ordered).days
 
 
 class Pricing(models.Model):
