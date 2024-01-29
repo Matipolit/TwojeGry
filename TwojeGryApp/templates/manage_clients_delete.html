@@ -1,0 +1,20 @@
+<h2>Potwierdź usunięcie</h2>
+<table class="alignedText">
+    <th></th>
+    <th></th>
+    <tr>
+        <td>Dane klienta</td>
+        <td>{{ client.name }} {{client.surname}}</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>{{ client.email }}</td>
+    </tr>
+    <tr>
+        <td>Numer Telefonu</td>
+        <td>{{ client.phone_number }}</td>
+    </tr>
+
+</table>
+<button onclick="closeWindow()">Anuluj</button>
+<button class="negative" hx-post="delete/{{ client.id }}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-vals='{"formtype": "delete"}' hx-target="body">Usuń</button>

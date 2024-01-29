@@ -1,0 +1,20 @@
+<h2>Potwierdź usunięcie</h2>
+<table class="alignedText">
+    <th></th>
+    <th></th>
+    <tr>
+        <td>Dane gry</td>
+        <td>{{ game.name }} {{game.genre}} </td>
+    </tr>
+    <tr>
+        <td>Liczba graczy</td>
+        <td>{{ game.min_players }}-{{game.max_players}}</td>
+    </tr>
+    <tr>
+        <td>Cena</td>
+        <td>{{game.price}}</td>
+    </tr>
+
+</table>
+<button onclick="closeWindow()">Anuluj</button>
+<button class="negative" hx-post="delete/{{ game.id }}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-vals='{"formtype": "delete"}' hx-target="body">Usuń</button>

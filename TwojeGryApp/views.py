@@ -160,3 +160,136 @@ def manage_rentals(request: HttpRequest):
         "payment": payment
     }
     return render(request, "manage_rentals.html", context)
+
+class ClientForm(forms.ModelForm):
+    class Meta:
+        model = Client
+        fields = ["name","surname","email","phone_number"]
+        labels = {
+            "name": "Imie",
+            "surname": "Nazwisko",
+            "email": "Adres Email",
+            "phone_number": "Numer Telefonu"
+        }
+
+@login_required(login_url='login')
+def manage_clients(request: HttpRequest):
+    clients = Client.objects.all()
+    for client in clients:
+        print(f"{client.name}: {client.surname}")
+    context = {"clients": clients}
+    return render(request,"manage_clients.html",context)
+
+
+@login_required(login_url='login')
+def manage_clients_choose_action(request:HttpRequest):
+    return render(request,"manage_clients_choose_action.html")
+
+
+@login_required(login_url='login')
+def manage_clients_edit(request: HttpRequest, client_id: int):
+    client = Client.objects.get(id=client_id)
+    if request.method== "POST":
+        print("Received new edit")
+        client_form = ClientForm(request.POST, instance=client)
+        if client_form.is_valid():
+            print("Is valid")
+            client_form.save()
+        
+        return manage_clients(request)
+    else:
+        client_form = ClientForm(instance=client)
+        context = {"client_form": client_form, "client": client}
+        return render(request, "manage_clients_edit.html", context)
+    
+
+@login_required(login_url='login')
+def manage_clients_create(request: HttpRequest):
+    if request.method == "POST":
+        print("Received new create")
+        client_form = ClientForm(request.POST)
+        if client_form.is_valid():
+            print("is valid")
+            client_form.save()
+        return manage_clients(request)
+    else:
+        client_form = ClientForm()
+        context = {"client_form": client_form}
+        return render(request, "manage_clients_create.html", context)
+    
+
+def manage_clients_delete(request: HttpRequest, client_id: int):
+    client = Client.objects.get(id=client_id)
+    if request.method == "POST":
+        client.delete()
+        return manage_clients(request)
+    else:
+        context = {"client": client}
+        return render(request, "manage_clients_delete.html", context)
+    
+class GameForm(forms.ModelForm):
+    class Meta:
+        model = Game
+        fields = ["name","genre","min_players","max_players","price"]
+        labels = {
+            "name": "Nazwa",
+            "genre": "Gatunek",
+            "min_players": "Minimalna liczba graczy",
+            "max_players": "Maksymalna liczba graczy",
+            "price": "Cena"
+        }
+
+@login_required(login_url='login')
+def manage_games(request: HttpRequest):
+    games = Game.objects.all()
+    for game in games:
+        print(f"{game.name}")
+    context = {"games": games}
+    return render(request,"manage_games.html",context)
+
+
+@login_required(login_url='login')
+def manage_games_choose_action(request:HttpRequest):
+    return render(request,"manage_games_choose_action.html")
+
+
+@login_required(login_url='login')
+def manage_games_edit(request: HttpRequest, game_id: int):
+    game = Game.objects.get(id=game_id)
+    if request.method== "POST":
+        print("Received new edit")
+        game_form = GameForm(request.POST, instance=game)
+        if game_form.is_valid():
+            print("Is valid")
+            game_form.save()
+        
+        return manage_games(request)
+    else:
+        game_form = GameForm(instance=game)
+        context = {"game_form": game_form, "game": game}
+        return render(request, "manage_games_edit.html", context)
+    
+
+@login_required(login_url='login')
+def manage_games_create(request: HttpRequest):
+    if request.method == "POST":
+        print("Received new create")
+        game_form = GameForm(request.POST)
+        if game_form.is_valid():
+            print("is valid")
+            game_form.save()
+        return manage_games(request)
+    else:
+        game_form = GameForm()
+        context = {"game_form": game_form}
+        return render(request, "manage_games_create.html", context)
+    
+
+def manage_games_delete(request: HttpRequest, game_id: int):
+    game = Game.objects.get(id=game_id)
+    if request.method == "POST":
+        game.delete()
+        return manage_games(request)
+    else:
+        context = {"game": game}
+        return render(request, "manage_games_delete.html", context)

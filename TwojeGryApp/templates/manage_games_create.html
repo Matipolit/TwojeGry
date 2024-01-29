@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block path %}Zarządzaj grami{%endblock path%}
+{% block title %}Wypełnij formularz{% endblock %}
+
+{% block content %}
+    {{ errors }}
+    <form method="POST" >
+        {% csrf_token %}
+        {{ game_form.as_p }}
+        <input class="button" type="submit" value="Dodaj Gre">
+    </form>
+
+
+{% endblock content %}

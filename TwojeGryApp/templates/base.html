@@ -20,9 +20,9 @@
                 <div class="verticalList">
                     <a class="item {% if view_name == "manage_rentals" %}selected {% endif %}nav" href="/manage_rentals">Zarządzaj wypożyczeniami</a>
                     <a class="item {% if view_name == "manage_copies" %}selected {% endif %}nav" href="/manage_copies">Zarządzaj egzemplarzami</a>
-                    <a class="item {% if view_name == "manage_games" %}selected {% endif %}nav" href="/manage_games">Zarządzaj grami</a>
-                    <a class="item {% if view_name == "manage_clients" %}selected {% endif %}nav" href="/manage_clients">Zarządzaj klientami</a>
-
+                    <a hx-get="/manage_games_choose_action" hx-trigger="click" hx-target="#window" hx-swap="innerHTML" hx-on::after-request="showWindow()" class="item {% if view_name == "manage_games" %}selected {% endif %}nav" href="/manage_games_choose_action">Zarządzaj grami</a>
+                    <a hx-get="/manage_clients_choose_action" hx-trigger="click" hx-target="#window" hx-swap="innerHTML" hx-on::after-request="showWindow()" class="item {% if view_name == "manage_clients" %}selected {% endif %}nav" href="/manage_clients_choose_action">Zarządzaj klientami</a>
+                    
                 </div>
             {% endwith %}
 

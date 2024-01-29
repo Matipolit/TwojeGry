@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block path %}Zarządzaj klientami{%endblock path%}
+{% block title %}Wypełnij formularz{% endblock %}
+
+{% block content %}
+    {{ errors }}
+    <form method="POST" >
+        {% csrf_token %}
+        {{ client_form.as_p }}
+        <input class="button" type="submit" value="Dodaj Klienta">
+    </form>
+
+
+{% endblock content %}
